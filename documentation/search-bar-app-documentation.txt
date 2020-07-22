@@ -1,0 +1,56 @@
+App's components:
+
+- input component
+- the search cta
+- the slider component
+- the checkbox group
+- the radiobox group
+- pagination component
+- the list component
+- the list element detailer component
+- the wrapper component
+
+Search by:
+1. name
+2. filters:
+   2.1 age
+   2.2 eyeColor
+   2.3 gender
+   2.4 prefered animals
+   2.5 prefered fruit
+
+
+Obj structure
+[
+  {
+    "_id": "5d5d7ad6b0518f619b88c330",
+    "age": 34,
+    "eyeColor": "brown",
+    "name": "Berry Fletcher",
+    "gender": "male",
+    "location": {
+      "latitude": -86.393021,
+      "longitude": -140.02685
+    },
+    "preferences": {
+      "pet": "dog",
+      "fruit": "banana"
+    }
+  }
+]
+
+The application has the following structure:
+- a form that is made out of two fieldsets.
+  The first one has an input type text and a search CTA.
+  The second fieldset holds the filter. The filter offers the possibility the filter the data by  age, eyeColor ,gender ,prefered animals
+  and prefered fruit.
+  The form triggers a validation when the search CTA is clicked. The validation is triggered only on the first fieldset.
+  The emitted data from both fieldset are stored when the user interacts with the inputs and are used to filter the data.
+
+- a list of users that behaves like an accordion. When a list element is selected the data related that user is shown in a slide animation.
+  The list of users is going to be reactive to the filters.
+
+- a pagination that is showing the current page. The pagination is responsible of showing and changing the page. When the page is changing
+  the data is changed as well. The pagination is going to be reactive based on the user array.
+  If page number 1 is active the first page cta is disabled.
+  If the last page is active the last  page cta is disabled.

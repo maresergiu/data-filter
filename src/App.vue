@@ -1,28 +1,35 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <header id="site-header">
+      <div class="holder">
+        <h1 class="sub-title">Data filter App</h1>
+      </div>
+    </header>
+    <main id="main">
+      <SearchForm />
+      <Loader />
+    </main>
+    <footer id="site-footer">
+      <div class="holder">
+        <p class="text">Sergiu Mare - Front End Developer</p>
+      </div>
+    </footer>
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import "vue-slider-component/theme/antd.css";
+import "./scss/libs/normalize.scss";
+import "./scss/main.scss";
+
+import Loader from "./components/Loader.vue";
+import SearchForm from "./components/SearchForm.vue";
 
 export default {
   name: "App",
   components: {
-    HelloWorld
+    Loader,
+    SearchForm
   }
 };
 </script>
-
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
