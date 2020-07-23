@@ -1,13 +1,11 @@
 <template>
-  <li
-    class="list-element"
-     :class="{'active': listElem._id === activeListElem}">
+  <li class="list-element" :class="{ active: listElem._id === activeListElem }">
     <div class="cf">
       <h3 class="sub-title sub-title-xs float-left">{{ listElem.name }}</h3>
       <button
         type="button"
         class="cta cta-smp float-right icon"
-        :class="{'active': listElem._id === activeListElem}"
+        :class="{ active: listElem._id === activeListElem }"
         @click="() => handleClickCta(listElem._id)"
       >
         <img src="@/assets/down-arrow.png" alt="icon" />

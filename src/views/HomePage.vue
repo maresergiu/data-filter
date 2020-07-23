@@ -68,7 +68,7 @@ export default {
           this.setInternetConnectionState(navigator.onLine);
       })
       .then(() => {
-          this.setLoaderVisibility(false);
+        this.setLoaderVisibility(false);
       });
   }
 };
