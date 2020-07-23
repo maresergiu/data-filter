@@ -6,8 +6,8 @@
       </div>
     </header>
     <main id="main">
-      <SearchForm />
-      <Loader />
+      <HomePage />
+      <GlobalComponents />
     </main>
     <footer id="site-footer">
       <div class="holder">
@@ -22,14 +22,17 @@ import "vue-slider-component/theme/antd.css";
 import "./scss/libs/normalize.scss";
 import "./scss/main.scss";
 
-import Loader from "./components/Loader.vue";
-import SearchForm from "./components/SearchForm.vue";
+import HomePage from "./views/HomePage.vue";
+import GlobalComponents from "./components/GlobalComponents.vue";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export default {
   name: "App",
   components: {
-    Loader,
-    SearchForm
+    HomePage,
+    GlobalComponents
   }
 };
 </script>
