@@ -66,7 +66,10 @@ export default {
       clearTimeout(this.clickTimer);
 
       this.clickTimer = setTimeout(() => {
-        this.$emit("emittedActiveListElem", id);
+        this.$emit(
+          "emittedActiveListElem",
+          this.activeListElem === id ? "-1" : id
+        );
       }, this.animTimers.fast);
     }
   }
