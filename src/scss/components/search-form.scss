@@ -1,0 +1,28 @@
+@import "../variables.scss";
+
+.search-form {
+    & .holder {
+        border: 1px solid $color-two;
+        padding: 20px;
+    }
+
+    &_search-input {
+        width: calc(100% - 240px);
+    }
+
+    &_fix-width-cta {
+        width: 100px;
+        margin-left: 10px;
+    }
+
+    &_separator {
+        border-top: 1px solid $color-two;
+        margin: 20px 0;
+    }
+
+    &_filters {
+        & .sub-title {
+            padding: 0;
+        }
+    }
+}

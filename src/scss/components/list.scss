@@ -1,0 +1,14 @@
+@import '../variables.scss';
+
+.list {
+    &-element { border-bottom: 1px solid $color-two;
+
+        &.active { background-color: $color-ten; }
+
+        & .cta.active {
+            transition: $transitionFast;
+            transform-origin: center;
+            transform: rotate(180deg);
+        }
+    }
+}
