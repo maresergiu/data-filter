@@ -69,6 +69,12 @@ export default {
       // resets the input
       type: Number,
       required: true
+    },
+    resetValidationObj: {
+      // resets the input
+      type: Number,
+      required: false,
+      default: 0
     }
   },
   data() {
@@ -86,6 +92,9 @@ export default {
     },
     resetInput() {
       this.resetInputValue();
+      this.resetValidationError();
+    },
+    resetValidationObj() {
       this.resetValidationError();
     }
   },
@@ -121,8 +130,7 @@ export default {
     },
     handleKeyUp(event) {
       const eventValue = event.target.value.trim();
-      this.inputValue =
-        this.inputType === "number" ? parseFloat(eventValue) : eventValue;
+      this.inputValue = this.inputType === "number" ? parseFloat(eventValue) : eventValue;
 
       this.resetValidationError();
       this.emitData();

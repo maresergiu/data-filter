@@ -12,6 +12,7 @@
           :hideLabel="true"
           :triggerValidation="triggerValidation"
           :resetInput="resetFormPrimary"
+          :resetValidationObj="resetValidationFormPrimary"
           @emittedErrorInput="handleErrorInput"
           @emittedValidInput="handleValidInput"
         />
@@ -119,6 +120,7 @@ export default {
       triggerValidationSecodnary: 0, // prevent validation for some inputs
       resetFormPrimary: 0, // reset part of the form
       resetFormSecondary: 0, // reset part of the form
+      resetValidationFormPrimary: 0, // reset the valdiation msg for the first fieldset
       allowFormValidation: true, // allow form validation flag
       allowAgeFilterUpdate: false, // allow filter age store update flag
       triggerFiltering: 0 // triggers the list filtering assign to this form
@@ -190,7 +192,7 @@ export default {
       const filters = this.getFilters;
 
       filters[obj.name] = obj.value;
-      this.resetFormFieldsetPrimary();
+      this.resetValidationFormPrimaryMethod();
       this.setFilters(filters);
     },
     // resets the form errors array
@@ -233,8 +235,8 @@ export default {
         this.setTriggerFiltering(this.triggerFiltering);
       }
     },
-    resetFormFieldsetPrimary() {
-      this.resetFormPrimary += 1;
+    resetValidationFormPrimaryMethod() {
+      this.resetValidationFormPrimary += 1;
     },
     // reset the form state and hides errors
     resetAllFormState() {
@@ -246,12 +248,11 @@ export default {
     // reset the form state
     handleClickResetFormCta() {
       this.resetAllFormState();
+      this.resetSlider();
 
       // action from vuex
       this.setResetFilters();
       this.setAllowAgeFilterUpdate(false);
-
-      this.resetSlider();
     }
   }
 };

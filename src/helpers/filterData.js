@@ -47,11 +47,7 @@ const methods = {
     }
 
     if (filters.age && filters.age.length && filteredList.length) {
-      filteredList = filteredList.filter(
-        listElem =>
-          filters.age[0] >= parseInt(listElem.age) &&
-          filters.age[0] <= parseInt(listElem.age)
-      );
+      filteredList = filteredList.filter(listElem => listElem.age >= filters.age[0] && listElem.age <= filters.age[1]);
     }
 
     return filteredList;
