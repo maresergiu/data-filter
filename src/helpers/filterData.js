@@ -4,7 +4,7 @@ const methods = {
 
     if (filters.name && filteredList.length) {
       filteredList = filteredList.filter(
-        listElem => listElem.name.toLowerCase().indexOf(filters.name) > -1
+        listElem => listElem.name.toLowerCase().indexOf(filters.name.toLowerCase()) > -1
       );
     }
 
