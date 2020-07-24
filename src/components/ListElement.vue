@@ -20,6 +20,9 @@
           <p>Genrder: {{ listElem.gender }}</p>
         </li>
         <li>
+          <p>Age: {{ listElem.age }}</p>
+        </li>
+        <li>
           <p>EyeColor: {{ listElem.eyeColor }}</p>
         </li>
         <li>

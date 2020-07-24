@@ -1,6 +1,7 @@
 <template>
   <div class="mod">
     <p>The following list has {{ countList }} elements.</p>
+    <h2 class="sub-title sub-title-sm">List</h2>
     <ul class="list">
       <ListElement
         v-for="listElem in list"
