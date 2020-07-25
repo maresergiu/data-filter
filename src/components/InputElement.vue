@@ -1,8 +1,6 @@
 <template>
   <div>
-    <label :for="inputId" :class="{ hidden: hideLabel }" class="label">
-      {{ label }}
-    </label>
+    <label :for="inputId" :class="{ hidden: hideLabel }" class="label">{{ label }}</label>
     <input
       :type="inputType"
       :id="inputId"
@@ -17,9 +15,7 @@
         v-for="(error, index) in this.inputErrors"
         :key="error.key + index"
         class="text"
-      >
-        {{ validatorErrorMsg[inputName][error.type] }}
-      </p>
+      >{{ validatorErrorMsg[inputName][error.type] }}</p>
     </div>
   </div>
 </template>
@@ -69,6 +65,12 @@ export default {
       // resets the input
       type: Number,
       required: true
+    },
+    resetValidationObj: {
+      // resets the input
+      type: Number,
+      required: false,
+      default: 0
     }
   },
   data() {
@@ -86,6 +88,9 @@ export default {
     },
     resetInput() {
       this.resetInputValue();
+      this.resetValidationError();
+    },
+    resetValidationObj() {
       this.resetValidationError();
     }
   },
@@ -113,9 +118,7 @@ export default {
         value: this.inputValue
       };
 
-      if (this.validationObj.error) {
-        this.$emit("emittedErrorInput", objToEmit);
-      }
+      if (this.validationObj.error) this.$emit("emittedErrorInput", objToEmit);
 
       this.$emit("emittedValidInput", objToEmit);
     },

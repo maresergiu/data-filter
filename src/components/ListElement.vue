@@ -1,13 +1,11 @@
 <template>
-  <li
-    class="list-element"
-     :class="{'active': listElem._id === activeListElem}">
+  <li class="list-element" :class="{ active: listElem._id === activeListElem }">
     <div class="cf">
       <h3 class="sub-title sub-title-xs float-left">{{ listElem.name }}</h3>
       <button
         type="button"
         class="cta cta-smp float-right icon"
-        :class="{'active': listElem._id === activeListElem}"
+        :class="{ active: listElem._id === activeListElem }"
         @click="() => handleClickCta(listElem._id)"
       >
         <img src="@/assets/down-arrow.png" alt="icon" />
@@ -20,6 +18,9 @@
       <ul class="holder">
         <li>
           <p>Genrder: {{ listElem.gender }}</p>
+        </li>
+        <li>
+          <p>Age: {{ listElem.age }}</p>
         </li>
         <li>
           <p>EyeColor: {{ listElem.eyeColor }}</p>
@@ -68,7 +69,10 @@ export default {
       clearTimeout(this.clickTimer);
 
       this.clickTimer = setTimeout(() => {
-        this.$emit("emittedActiveListElem", id);
+        this.$emit(
+          "emittedActiveListElem",
+          this.activeListElem === id ? "-1" : id
+        );
       }, this.animTimers.fast);
     }
   }
