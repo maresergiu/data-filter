@@ -34,9 +34,7 @@ function paginationParent(listName, enablePagination) {
         },
         methods: {
             updatePagination(filteredList) {
-                let conditionPrimary = Array.isArray(filteredList);
-
-                if (conditionPrimary) {
+                if (Array.isArray(filteredList)) {
                     this.paginationTotalPages = Math.ceil(
                         filteredList.length / this.paginationElemPerPage
                     );
