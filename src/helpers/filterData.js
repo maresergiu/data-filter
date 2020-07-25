@@ -4,7 +4,8 @@ const methods = {
 
     if (filters.name && filteredList.length) {
       filteredList = filteredList.filter(
-        listElem => listElem.name.toLowerCase().indexOf(filters.name.toLowerCase()) > -1
+        listElem =>
+          listElem.name.toLowerCase().indexOf(filters.name.toLowerCase()) > -1
       );
     }
 
@@ -47,7 +48,10 @@ const methods = {
     }
 
     if (filters.age && filters.age.length && filteredList.length) {
-      filteredList = filteredList.filter(listElem => listElem.age >= filters.age[0] && listElem.age <= filters.age[1]);
+      filteredList = filteredList.filter(
+        listElem =>
+          listElem.age >= filters.age[0] && listElem.age <= filters.age[1]
+      );
     }
 
     return filteredList;

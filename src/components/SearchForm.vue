@@ -192,6 +192,7 @@ export default {
       const filters = this.getFilters;
 
       filters[obj.name] = obj.value;
+
       this.resetValidationFormPrimaryMethod();
       this.setFilters(filters);
     },
