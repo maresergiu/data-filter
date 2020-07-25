@@ -220,6 +220,7 @@ export default {
 
       if (this.allowFormValidation) this.validateForm();
 
+      // wait for the all validation to finish
       await flushPromises();
 
       // if form passes validation
@@ -228,6 +229,7 @@ export default {
         this.setTriggerFiltering(this.triggerFiltering);
       }
     },
+    // resets the first fieldset of the form
     resetValidationFormPrimaryMethod() {
       this.resetValidationFormPrimary += 1;
     },

@@ -1,5 +1,6 @@
+// this function extends the functionality of the holder of the pagination component
+// this function has to be placed in the mixin property width two arguments ex:  mixins: [paginationParent("paginationListArray", "enablePagination")]
 function paginationParent(listName, enablePagination) {
-  // this function has to be paced in the mixins property as an argument
   const paginationParent = {
     data: () => {
       return {
@@ -12,10 +13,12 @@ function paginationParent(listName, enablePagination) {
       };
     },
     watch: {
+      // the displayed list changes when the active page changes
       paginationActivePage() {
         this.calcUnitsPerPage(this.list);
       },
       list() {
+        // reset the starting point to 1 when the list changes
         this.setActivePage(1);
 
         if (this.enablePagination) {
@@ -25,6 +28,7 @@ function paginationParent(listName, enablePagination) {
       }
     },
     computed: {
+      // props are not accesible here, usage of computed propperty to retrieve the values
       listArray() {
         return this[listName];
       },
@@ -33,6 +37,7 @@ function paginationParent(listName, enablePagination) {
       }
     },
     methods: {
+      // update the ctas from the pagination component
       updatePagination(filteredList) {
         if (Array.isArray(filteredList)) {
           this.paginationTotalPages = Math.ceil(
@@ -51,6 +56,7 @@ function paginationParent(listName, enablePagination) {
       setActivePage(page) {
         this.paginationActivePage = page;
       },
+      // show the custom page of the list
       generateCustomPage(filteredList) {
         const list = [],
           end = this.paginationActivePage * this.paginationElemPerPage,

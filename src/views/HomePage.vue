@@ -10,9 +10,7 @@
     <div v-else-if="httpState === 'error'">
       <p class="text">
         <span>Something went wrong and we couldn't access the data.</span>
-        <span v-if="internetConnectionState"
-          >Please check your internet connection.</span
-        >
+        <span v-if="internetConnectionState">Please check your internet connection.</span>
       </p>
     </div>
   </div>
@@ -49,11 +47,13 @@ export default {
   },
   watch: {
     getTriggerFiltering() {
+      // filter tha data based on the selected filters
       const filteredArray = this.filterArray(
         this.getPeopleList,
         this.getFilters
       );
 
+      // save the filtered list in the store
       this.setPeopleFilteredList(filteredArray);
     },
     getPeopleList() {
@@ -79,6 +79,7 @@ export default {
     setInternetConnectionState(value) {
       this.internetConnectionState = value;
     },
+    // generate the options for the radio/checkboxes dynamically
     extractObjectKeyValues(list) {
       const eyes = [],
         pet = [],
@@ -157,24 +158,34 @@ export default {
     }
   },
   mounted() {
+    // show loader
     this.setLoaderVisibility(true);
 
+    // fetch the data
     axios
       .get(process.env.VUE_APP_PEOPLE_JSON_FILE, {
         baseURL: process.env.VUE_APP_BASE_URL
       })
       .then(response => {
+        // save the initial list
         this.setPeopleList(response.data);
+
+        // save the filtered list
         this.setPeopleFilteredList(response.data);
+
+        // set the success flag for the http call
         this.setHttpState("success");
       })
       .catch(() => {
+        // set the error flag for the http call
         this.setHttpState("error");
 
+        // check if the internet connection dropped
         if (!navigator.onLine)
           this.setInternetConnectionState(navigator.onLine);
       })
       .then(() => {
+        // hide the loader
         this.setLoaderVisibility(false);
       });
   }

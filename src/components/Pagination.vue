@@ -1,6 +1,6 @@
 <template>
   <div class="text-center">
-    <!-- display the pagination only if we have at least two pages -->
+    <!-- display the pagination component only if we have more then one page -->
     <ul v-if="pages.length > 1" class="pagination cf inline-bl">
       <li class="pagination-element float-left">
         <button
@@ -59,8 +59,8 @@ export default {
       return (
         this.pages.length < 2 ||
         this.activePage - 1 === page ||
-          this.activePage === page ||
-          this.activePage + 1 === page
+        this.activePage === page ||
+        this.activePage + 1 === page
       );
     },
     handleClickCta(page) {

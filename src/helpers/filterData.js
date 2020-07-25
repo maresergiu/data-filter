@@ -1,3 +1,4 @@
+// methods for data filtering
 const methods = {
   filterArray: (list, filters) => {
     let filteredList = list;

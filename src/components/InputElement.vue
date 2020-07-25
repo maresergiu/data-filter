@@ -1,8 +1,10 @@
 <template>
   <div>
-    <label :for="inputId" :class="{ hidden: hideLabel }" class="label">{{
+    <label :for="inputId" :class="{ hidden: hideLabel }" class="label">
+      {{
       label
-    }}</label>
+      }}
+    </label>
     <input
       :type="inputType"
       :id="inputId"
@@ -17,9 +19,7 @@
         v-for="(error, index) in this.inputErrors"
         :key="error.key + index"
         class="text"
-      >
-        {{ validatorErrorMsg[inputName][error.type] }}
-      </p>
+      >{{ validatorErrorMsg[inputName][error.type] }}</p>
     </div>
   </div>
 </template>
@@ -109,9 +109,11 @@ export default {
         ? [...this.validationObj.error.details]
         : [];
     },
+    // hides the visible error
     resetValidationError() {
       this.inputErrors = [];
     },
+    // resets the value to an empty string
     resetInputValue() {
       this.inputValue = "";
     },
