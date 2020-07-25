@@ -1,10 +1,6 @@
 <template>
   <div class="input-element">
-    <div
-      v-for="checkBox in checkBoxes"
-      :key="checkBox.id"
-      class="input-element_checkbox inline-bl"
-    >
+    <div v-for="checkBox in checkBoxes" :key="checkBox.id" class="input-element_checkbox inline-bl">
       <input
         type="checkbox"
         :id="checkBox.id"
@@ -14,18 +10,14 @@
         class="input-element_checkbox-input"
         @change="handleChange"
       />
-      <label :for="checkBox.id" :class="{ hidden: hideLabel }" class="label">
-        {{ checkBox.label }}
-      </label>
+      <label :for="checkBox.id" :class="{ hidden: hideLabel }" class="label">{{ checkBox.label }}</label>
     </div>
     <div class="input-element_error">
       <p
         v-for="(error, index) in this.inputErrors"
         :key="error.key + index"
         class="text"
-      >
-        {{ validatorErrorMsg[inputName][error.type] }}
-      </p>
+      >{{ validatorErrorMsg[inputName][error.type] }}</p>
     </div>
   </div>
 </template>
@@ -76,6 +68,7 @@ export default {
     triggerValidation() {
       this.validateInput();
     },
+    // resets the iinput value and errors
     resetInput() {
       this.resetInputValue();
       this.resetValidationError();

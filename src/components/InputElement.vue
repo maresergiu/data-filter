@@ -1,6 +1,10 @@
 <template>
   <div>
-    <label :for="inputId" :class="{ hidden: hideLabel }" class="label">{{ label }}</label>
+    <label :for="inputId" :class="{ hidden: hideLabel }" class="label">
+      {{
+      label
+      }}
+    </label>
     <input
       :type="inputType"
       :id="inputId"
@@ -105,9 +109,11 @@ export default {
         ? [...this.validationObj.error.details]
         : [];
     },
+    // hides the visible error
     resetValidationError() {
       this.inputErrors = [];
     },
+    // resets the value to an empty string
     resetInputValue() {
       this.inputValue = "";
     },

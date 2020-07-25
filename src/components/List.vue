@@ -39,6 +39,7 @@ export default {
     },
     enablePagination: {
       // triggers the pagination UI and functionality
+      // this module can be displayed olso as a simple list
       type: Boolean,
       required: false,
       default: false
@@ -48,9 +49,10 @@ export default {
     return {
       activeListElem: "-1",
       paginationListArray: this.list,
-      listToBeDisplayed: []
+      listToBeDisplayed: [] // the array that will bild the list component
     };
   },
+  // extra functionality to cater for pagination if triggered
   mixins: [paginationParent("paginationListArray", "enablePagination")],
   components: {
     ListElement,

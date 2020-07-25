@@ -6,6 +6,10 @@
     &-element {
        padding: 0 10px;
 
+        @media only screen and (max-width: $breakpointMobile) {
+            padding: 0 5px;
+        }
+
        &:last-child,
        &:first-child {
         & .cta-smp {
