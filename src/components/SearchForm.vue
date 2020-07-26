@@ -20,19 +20,27 @@
           type="button"
           class="cta search-form_fix-width-cta float-right"
           @click="handleClickSearchCta"
-        >Search</button>
+        >
+          Search
+        </button>
         <button
           type="button"
           class="cta search-form_fix-width-cta float-right"
           @click="handleClickResetFormCta"
-        >Reset</button>
+        >
+          Reset
+        </button>
       </fieldset>
       <div class="search-form_separator"></div>
       <fieldset class="search-form_filters">
         <h2 class="sub-title">Filters</h2>
         <div v-if="getYearSliderObj">
           <p class="sub-title sub-title-xs">Age range</p>
-          <vue-slider v-model="sliderArray" :enable-cross="false" class="input-element_slider" />
+          <vue-slider
+            v-model="sliderArray"
+            :enable-cross="false"
+            class="input-element_slider"
+          />
         </div>
         <div v-if="getGenderRadioBoxObj">
           <p class="sub-title sub-title-xs">By gender</p>

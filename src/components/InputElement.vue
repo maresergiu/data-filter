@@ -1,16 +1,15 @@
 <template>
   <div>
-    <label :for="inputId" :class="{ hidden: hideLabel }" class="label">
-      {{
+    <label :for="inputId" :class="{ hidden: hideLabel }" class="label">{{
       label
-      }}
-    </label>
+    }}</label>
     <input
       :type="inputType"
       :id="inputId"
       :name="inputName"
       :placeholder="placeholder"
       class="input-element_input"
+      data-test-scope="input-element_input"
       :value="inputValue"
       @keyup="handleKeyUp"
     />
@@ -19,7 +18,9 @@
         v-for="(error, index) in this.inputErrors"
         :key="error.key + index"
         class="text"
-      >{{ validatorErrorMsg[inputName][error.type] }}</p>
+      >
+        {{ validatorErrorMsg[inputName][error.type] }}
+      </p>
     </div>
   </div>
 </template>
@@ -35,6 +36,11 @@ export default {
       type: String,
       required: true
     },
+    hideLabel: {
+      // toggle the label visibility
+      type: Boolean,
+      default: false
+    },
     inputId: {
       // the input ID
       type: String,
@@ -49,11 +55,6 @@ export default {
       // the input name
       type: String,
       required: true
-    },
-    hideLabel: {
-      // toggle the label visibility
-      type: Boolean,
-      default: false
     },
     placeholder: {
       // the input placeholder

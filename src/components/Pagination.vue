@@ -8,7 +8,9 @@
           class="cta cta-smp"
           :class="{ disabled: activePage === 1 }"
           @click="handleClickCta(1)"
-        >first</button>
+        >
+          first
+        </button>
       </li>
       <li
         v-for="page in pages"
@@ -21,7 +23,9 @@
           type="button"
           class="cta cta-smp"
           @click="handleClickCta(page)"
-        >{{ page }}</button>
+        >
+          {{ page }}
+        </button>
       </li>
       <li class="pagination-element float-left">
         <button
@@ -29,7 +33,9 @@
           class="cta cta-smp"
           :class="{ disabled: activePage === pages[pages.length - 1] }"
           @click="handleClickCta(pages[pages.length - 1])"
-        >last</button>
+        >
+          last
+        </button>
       </li>
     </ul>
   </div>
