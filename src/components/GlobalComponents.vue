@@ -7,8 +7,7 @@
 <script>
 import Loader from "./Loader.vue";
 
-// this component holds all the global component that are present on the page, asa loaders, dialog boxes etc
-
+// this component holds all the global components that are present on the page
 export default {
   name: "GlobalComponents",
   components: {

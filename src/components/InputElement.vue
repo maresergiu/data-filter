@@ -1,15 +1,15 @@
 <template>
   <div>
-    <label :for="inputId" :class="{ hidden: hideLabel }" class="label">{{
-      label
-    }}</label>
+    <label :for="inputId" :class="{ hidden: hideLabel }" class="label">
+      {{ label }}
+    </label>
     <input
       :type="inputType"
       :id="inputId"
       :name="inputName"
       :placeholder="placeholder"
       class="input-element_input"
-      data-test-scope="input-element_input"
+      :data-test-scope="`input-element-${inputId}`"
       :value="inputValue"
       @keyup="handleKeyUp"
     />
@@ -97,6 +97,9 @@ export default {
     },
     resetValidationObj() {
       this.resetValidationError();
+    },
+    inputErrors() {
+      this.inputErrors.length && this.emitError();
     }
   },
   methods: {
@@ -118,16 +121,19 @@ export default {
     resetInputValue() {
       this.inputValue = "";
     },
+    emitError() {
+      if (this.validationObj.error)
+        this.$emit("emittedErrorInput", {
+          name: this.inputName,
+          value: this.inputValue
+        });
+    },
     // emit the result of validation
     emitData() {
-      const objToEmit = {
+      this.$emit("emittedValidInput", {
         name: this.inputName,
         value: this.inputValue
-      };
-
-      if (this.validationObj.error) this.$emit("emittedErrorInput", objToEmit);
-
-      this.$emit("emittedValidInput", objToEmit);
+      });
     },
     handleKeyUp(event) {
       const eventValue = event.target.value.trim();

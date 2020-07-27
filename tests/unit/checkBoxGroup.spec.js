@@ -102,6 +102,20 @@ describe("CheckboxGroup.vue", () => {
     expect(wrapper.emitted().emittedValidInput).toBeTruthy();
   });
 
+  it(`should emit emittedErrorInput event if their is no selection in this group and the triggerValidation prop is incremented`, async () => {
+    const wrapper = shallowMount(CheckboxGroup, {
+      propsData: {
+        ...checkBoxProp
+      }
+    });
+
+    wrapper.setProps({ triggerValidation: 1 });
+
+    await wrapper.vm.$nextTick();
+
+    expect(wrapper.emitted().emittedErrorInput).toBeTruthy();
+  });
+
   it(`should reset the input if resetInput prop is incremented`, async () => {
     const wrapper = shallowMount(CheckboxGroup, {
       propsData: {

@@ -1,12 +1,14 @@
 <template>
-  <li class="list-element" :class="{ active: listElem._id === activeListElem }">
+  <li
+    class="list-element"
+    :class="{ active: listElem._id === activeListElem }"
+    data-test-scope="list-element"
+  >
     <div class="cf">
       <h3
         class="sub-title sub-title-xs float-left"
         data-test-scope="list-element-name"
-      >
-        {{ listElem.name }}
-      </h3>
+      >{{ listElem.name }}</h3>
       <button
         type="button"
         class="cta cta-smp float-right icon"
@@ -26,9 +28,7 @@
         <li>
           <p>
             Genrder:
-            <span data-test-scope="list-element-gender">
-              {{ listElem.gender }}
-            </span>
+            <span data-test-scope="list-element-gender">{{ listElem.gender }}</span>
           </p>
         </li>
         <li>
@@ -40,25 +40,21 @@
         <li>
           <p>
             EyeColor:
-            <span data-test-scope="list-element-eye-color">
-              {{ listElem.eyeColor }}
-            </span>
+            <span data-test-scope="list-element-eye-color">{{ listElem.eyeColor }}</span>
           </p>
         </li>
         <li>
           <p>
             Prefered pet:
-            <span data-test-scope="list-element-pet">
-              {{ listElem.preferences.pet }}
-            </span>
+            <span data-test-scope="list-element-pet">{{ listElem.preferences.pet }}</span>
           </p>
         </li>
         <li>
           <p>
             Prefered fruit:
-            <span data-test-scope="list-element-fruit">
-              {{ listElem.preferences.fruit }}
-            </span>
+            <span
+              data-test-scope="list-element-fruit"
+            >{{ listElem.preferences.fruit }}</span>
           </p>
         </li>
       </ul>

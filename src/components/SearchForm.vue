@@ -1,5 +1,9 @@
 <template>
-  <form class="search-form mod">
+  <form
+    @submit.prevent="handleClickSearchCta"
+    class="search-form mod"
+    data-test-scope="search-form"
+  >
     <div class="holder">
       <fieldset class="search-form_search-holder cf">
         <InputElement
@@ -19,34 +23,28 @@
         <button
           type="button"
           class="cta search-form_fix-width-cta float-right"
+          data-test-scope="search-form-search-cta"
           @click="handleClickSearchCta"
-        >
-          Search
-        </button>
+        >Search</button>
         <button
           type="button"
           class="cta search-form_fix-width-cta float-right"
+          data-test-scope="search-form-reset-cta"
           @click="handleClickResetFormCta"
-        >
-          Reset
-        </button>
+        >Reset</button>
       </fieldset>
       <div class="search-form_separator"></div>
       <fieldset class="search-form_filters">
         <h2 class="sub-title">Filters</h2>
         <div v-if="getYearSliderObj">
           <p class="sub-title sub-title-xs">Age range</p>
-          <vue-slider
-            v-model="sliderArray"
-            :enable-cross="false"
-            class="input-element_slider"
-          />
+          <vue-slider v-model="sliderArray" :enable-cross="false" class="input-element_slider" />
         </div>
         <div v-if="getGenderRadioBoxObj">
           <p class="sub-title sub-title-xs">By gender</p>
           <RadioGroup
             inputName="gender"
-            :checkBoxes="getGenderRadioBoxObj"
+            :radioBoxes="getGenderRadioBoxObj"
             :triggerValidation="triggerValidationSecodnary"
             :resetInput="resetFormSecondary"
             @emittedErrorInput="handleErrorInput"
@@ -194,6 +192,7 @@ export default {
       filters[obj.name] = obj.value;
 
       this.resetValidationFormPrimaryMethod();
+      this.resetFormErrors();
       this.setFilters(filters);
     },
     // resets the form errors array
@@ -256,6 +255,7 @@ export default {
       // action from vuex
       this.setResetFilters();
       this.setAllowAgeFilterUpdate(false);
+      this.resetFormErrors();
     }
   }
 };

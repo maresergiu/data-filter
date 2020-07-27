@@ -14,11 +14,11 @@
         class="input-element_checkbox-input"
         @change="handleChange"
       />
-      <label :for="checkBox.id" :class="{ hidden: hideLabel }" class="label">
-        {{ checkBox.label }}
-      </label>
+      <label :for="checkBox.id" :class="{ hidden: hideLabel }" class="label">{{
+        checkBox.label
+      }}</label>
     </div>
-    <div class="input-element_error">
+    <div class="input-element_error" data-test-scope="input-element-error">
       <p
         v-for="(error, index) in this.inputErrors"
         :key="error.key + index"
@@ -80,6 +80,9 @@ export default {
     resetInput() {
       this.resetInputValue();
       this.resetValidationError();
+    },
+    inputErrors() {
+      this.inputErrors.length && this.emitError();
     }
   },
   methods: {
@@ -101,18 +104,20 @@ export default {
         ? [...this.validationObj.error.details]
         : [];
     },
-    // emits the data to the parent
+    // emits the validation error obj to parent
+    emitError() {
+      if (this.validationObj.error)
+        this.$emit("emittedErrorInput", {
+          name: this.inputName,
+          value: this.inputValue
+        });
+    },
+    // emit the data of the input
     emitData() {
-      const objToEmit = {
+      this.$emit("emittedValidInput", {
         name: this.inputName,
-        value: this.activeCheckBoxes
-      };
-
-      if (this.validationObj.error) {
-        this.$emit("emittedErrorInput", objToEmit);
-      }
-
-      this.$emit("emittedValidInput", objToEmit);
+        value: this.inputValue
+      });
     },
     handleChange(event) {
       this.inputValue = event.target.value.trim();
