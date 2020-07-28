@@ -4,6 +4,7 @@ test: the app has unit test and integration test
 technology : vue.js + vuex + vue router
 
 app name: Smart Search
+
 app functionality:
   - see a paginated list of people.
   - do a full text search to dynamically filter the results.
