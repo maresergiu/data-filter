@@ -1,6 +1,8 @@
 <template>
   <div class="mod">
-    <p class="text" data-test-scope="list-count">The following list has {{ countList }} elements.</p>
+    <p class="text" data-test-scope="list-count">
+      The following list has {{ countList }} elements.
+    </p>
     <h2 class="sub-title sub-title-sm">List</h2>
     <ul class="list" data-test-scope="list">
       <ListElement

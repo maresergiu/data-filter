@@ -1,14 +1,23 @@
 <template>
   <div class="text-center" data-test-scope="pagination">
     <!-- display the pagination component only if we have more then one page -->
-    <ul v-if="pages.length > 1" class="pagination cf inline-bl" data-test-scope="pagination-list">
-      <li class="pagination-element float-left" data-test-scope="pagination-element-first">
+    <ul
+      v-if="pages.length > 1"
+      class="pagination cf inline-bl"
+      data-test-scope="pagination-list"
+    >
+      <li
+        class="pagination-element float-left"
+        data-test-scope="pagination-element-first"
+      >
         <button
           type="button"
           class="cta cta-smp"
           :class="{ disabled: activePage === 1 }"
           @click="handleClickCta(1)"
-        >first</button>
+        >
+          first
+        </button>
       </li>
       <li
         v-for="page in pages"
@@ -22,15 +31,22 @@
           type="button"
           class="cta cta-smp"
           @click="handleClickCta(page)"
-        >{{ page }}</button>
+        >
+          {{ page }}
+        </button>
       </li>
-      <li class="pagination-element float-left" data-test-scope="pagination-element-last">
+      <li
+        class="pagination-element float-left"
+        data-test-scope="pagination-element-last"
+      >
         <button
           type="button"
           class="cta cta-smp"
           :class="{ disabled: activePage === pages[pages.length - 1] }"
           @click="handleClickCta(pages[pages.length - 1])"
-        >last</button>
+        >
+          last
+        </button>
       </li>
     </ul>
   </div>

@@ -11,185 +11,218 @@ import mockedPeopleListList from "../../src/store/mocks/people-list";
 import HomePage from "../../src/views/HomePage.vue";
 
 describe("HomePage.vue", () => {
-    let mockedList = mockedPeopleListList,
-        store,
-        localVue,
-        wrapper;
+  let mockedList = mockedPeopleListList,
+    store,
+    localVue,
+    wrapper;
 
-    const simulateHttpSuccess = async () => {
-        store.dispatch('list/setPeopleList', mockedList);
-        store.dispatch('list/setPeopleFilteredList', mockedList);
+  const simulateHttpSuccess = async () => {
+      store.dispatch("list/setPeopleList", mockedList);
+      store.dispatch("list/setPeopleFilteredList", mockedList);
 
-        await wrapper.vm.$nextTick();
-        await flushPromises();
+      await wrapper.vm.$nextTick();
+      await flushPromises();
 
-        wrapper.vm.$data.httpState = "success";
+      wrapper.vm.$data.httpState = "success";
     },
-        checkDisplayedInfo = (collection, comparationArgument) => {
-            for (let i = 0; i < collection.length; i += 1) {
-                expect(comparationArgument.indexOf(collection.at(i).text()) > -1).toBe(true);
-            }
-        };
+    checkDisplayedInfo = (collection, comparationArgument) => {
+      for (let i = 0; i < collection.length; i += 1) {
+        expect(comparationArgument.indexOf(collection.at(i).text()) > -1).toBe(
+          true
+        );
+      }
+    };
 
-    beforeAll(() => {
-        localVue = createLocalVue();
-        localVue.use(Vuex);
+  beforeAll(() => {
+    localVue = createLocalVue();
+    localVue.use(Vuex);
 
-        store = new Vuex.Store({
-            modules: {
-                list: cloneDeep(listStoreFile),
-                loader: cloneDeep(loaderStoreFile),
-                searchForm: cloneDeep(searchFormStoreFile),
-            }
-        });
-
-        wrapper = mount(HomePage, {
-            store,
-            localVue
-        });
+    store = new Vuex.Store({
+      modules: {
+        list: cloneDeep(listStoreFile),
+        loader: cloneDeep(loaderStoreFile),
+        searchForm: cloneDeep(searchFormStoreFile)
+      }
     });
 
-    it("should exist as a component ", async () => {
-        simulateHttpSuccess();
-        await flushPromises();
-
-        expect(wrapper.exists()).toBeTruthy();
+    wrapper = mount(HomePage, {
+      store,
+      localVue
     });
+  });
 
-    it("should display the SearchForm component", async () => {
-        simulateHttpSuccess();
-        await flushPromises();
+  it("should exist as a component ", async () => {
+    simulateHttpSuccess();
+    await flushPromises();
 
-        expect(wrapper.find("[data-test-scope=search-form]").exists()).toBeTruthy();
-    });
+    expect(wrapper.exists()).toBeTruthy();
+  });
 
-    it("should display the List component", async () => {
-        simulateHttpSuccess();
-        await flushPromises();
+  it("should display the SearchForm component", async () => {
+    simulateHttpSuccess();
+    await flushPromises();
 
-        expect(wrapper.find("[ data-test-scope=list-count]").exists()).toBeTruthy();
-    });
+    expect(wrapper.find("[data-test-scope=search-form]").exists()).toBeTruthy();
+  });
 
-    it("should display the Pagination component", async () => {
-        simulateHttpSuccess();
-        await flushPromises();
+  it("should display the List component", async () => {
+    simulateHttpSuccess();
+    await flushPromises();
 
-        expect(wrapper.find("[ data-test-scope=pagination]").exists()).toBeTruthy();
-    });
+    expect(wrapper.find("[ data-test-scope=list-count]").exists()).toBeTruthy();
+  });
 
-    it("should leave the list component with one element is a search is done with the parameter Stephens Townsend, pagination has no pages", async () => {
-        simulateHttpSuccess();
+  it("should display the Pagination component", async () => {
+    simulateHttpSuccess();
+    await flushPromises();
 
-        const searchBarInput = wrapper.find("[data-test-scope=input-element-name]");
+    expect(wrapper.find("[ data-test-scope=pagination]").exists()).toBeTruthy();
+  });
 
-        searchBarInput.trigger("keyup");
-        searchBarInput.setValue("Stephens");
-        searchBarInput.trigger("keyup");
-        wrapper.find("[data-test-scope=search-form-search-cta]").trigger("click");
+  it("should leave the list component with one element is a search is done with the parameter Stephens Townsend, pagination has no pages", async () => {
+    simulateHttpSuccess();
 
-        // if method is not called twice the jest dom is not updated
-        await flushPromises();
-        await flushPromises();
+    const searchBarInput = wrapper.find("[data-test-scope=input-element-name]");
 
-        expect(wrapper.findAll("[data-test-scope=list-element]").length).toBe(1);
-        expect(wrapper.find("[data-test-scope=list-element-name]").text()).toBe("Stephens Townsend");
-        expect(wrapper.find("[data-test-scope=pagination-list]").exists()).toBeFalsy();
-    });
+    searchBarInput.trigger("keyup");
+    searchBarInput.setValue("Stephens");
+    searchBarInput.trigger("keyup");
+    wrapper.find("[data-test-scope=search-form-search-cta]").trigger("click");
 
-    it("should leave the list component with 8 elements per page if a search is done with the parameter S, pagination has 3 pages", async () => {
-        simulateHttpSuccess();
+    // if method is not called twice the jest dom is not updated
+    await flushPromises();
+    await flushPromises();
 
-        const searchBarInput = wrapper.find("[data-test-scope=input-element-name]");
+    expect(wrapper.findAll("[data-test-scope=list-element]").length).toBe(1);
+    expect(wrapper.find("[data-test-scope=list-element-name]").text()).toBe(
+      "Stephens Townsend"
+    );
+    expect(
+      wrapper.find("[data-test-scope=pagination-list]").exists()
+    ).toBeFalsy();
+  });
 
-        searchBarInput.trigger("keyup");
-        searchBarInput.setValue("S");
-        searchBarInput.trigger("keyup");
-        wrapper.find("[data-test-scope=search-form-search-cta]").trigger("click");
+  it("should leave the list component with 8 elements per page if a search is done with the parameter S, pagination has 3 pages", async () => {
+    simulateHttpSuccess();
 
-        // if method is not called twice the jest dom is not updated
-        await flushPromises();
-        await flushPromises();
+    const searchBarInput = wrapper.find("[data-test-scope=input-element-name]");
 
-        expect(wrapper.findAll("[data-test-scope=list-element]").length).toBe(8);
+    searchBarInput.trigger("keyup");
+    searchBarInput.setValue("S");
+    searchBarInput.trigger("keyup");
+    wrapper.find("[data-test-scope=search-form-search-cta]").trigger("click");
 
-        wrapper.find("[data-test-scope=pagination-element-last] .cta").trigger("click");
+    // if method is not called twice the jest dom is not updated
+    await flushPromises();
+    await flushPromises();
 
-        // if method is not called twice the jest dom is not updated
-        await flushPromises();
+    expect(wrapper.findAll("[data-test-scope=list-element]").length).toBe(8);
 
-        expect(wrapper.find("[data-test-scope=pagination-element-3] .cta").exists()).toBeTruthy();
-        expect((wrapper.find("[data-test-scope=pagination-element-3]").attributes("class").indexOf("active") > -1)).toBe(true);
-    });
+    wrapper
+      .find("[data-test-scope=pagination-element-last] .cta")
+      .trigger("click");
 
-    it("should show only users that have brown eyes if brown eye color is selected", async () => {
-        simulateHttpSuccess();
+    // if method is not called twice the jest dom is not updated
+    await flushPromises();
 
-        const brownEyeColorCheckBox = wrapper.find("#eyeColor-brown");
+    expect(
+      wrapper.find("[data-test-scope=pagination-element-3] .cta").exists()
+    ).toBeTruthy();
+    expect(
+      wrapper
+        .find("[data-test-scope=pagination-element-3]")
+        .attributes("class")
+        .indexOf("active") > -1
+    ).toBe(true);
+  });
 
-        brownEyeColorCheckBox.trigger("click");
+  it("should show only users that have brown eyes if brown eye color is selected", async () => {
+    simulateHttpSuccess();
 
-        await wrapper.find("[data-test-scope=search-form-search-cta]").trigger("click");
+    const brownEyeColorCheckBox = wrapper.find("#eyeColor-brown");
 
-        // if method is not called twice the jest dom is not updated
-        await flushPromises();
-        await flushPromises();
+    brownEyeColorCheckBox.trigger("click");
 
-        const eyeColorListing = wrapper.findAll("[data-test-scope=list-element-eye-color]");
+    await wrapper
+      .find("[data-test-scope=search-form-search-cta]")
+      .trigger("click");
 
-        checkDisplayedInfo(eyeColorListing, ["brown"]);
-    });
+    // if method is not called twice the jest dom is not updated
+    await flushPromises();
+    await flushPromises();
 
-    it("should show only users that have green eyes if green eye color is selected", async () => {
-        simulateHttpSuccess();
+    const eyeColorListing = wrapper.findAll(
+      "[data-test-scope=list-element-eye-color]"
+    );
 
-        const brownEyeColorCheckBox = wrapper.find("#eyeColor-green");
+    checkDisplayedInfo(eyeColorListing, ["brown"]);
+  });
 
-        brownEyeColorCheckBox.trigger("click");
+  it("should show only users that have green eyes if green eye color is selected", async () => {
+    simulateHttpSuccess();
 
-        await wrapper.find("[data-test-scope=search-form-search-cta]").trigger("click");
+    const brownEyeColorCheckBox = wrapper.find("#eyeColor-green");
 
-        // if method is not called twice the jest dom is not updated
-        await flushPromises();
-        await flushPromises();
+    brownEyeColorCheckBox.trigger("click");
 
-        const eyeColorListing = wrapper.findAll("[data-test-scope=list-element-eye-color]");
+    await wrapper
+      .find("[data-test-scope=search-form-search-cta]")
+      .trigger("click");
 
-        checkDisplayedInfo(eyeColorListing, ["green"]);
-    });
+    // if method is not called twice the jest dom is not updated
+    await flushPromises();
+    await flushPromises();
 
-    it("should show users that have green eyes and brown eyes if brown and green eyes color is selected", async () => {
-        simulateHttpSuccess();
+    const eyeColorListing = wrapper.findAll(
+      "[data-test-scope=list-element-eye-color]"
+    );
 
-        wrapper.find("#eyeColor-brown").trigger("click");
-        wrapper.find("#eyeColor-green").trigger("click");
+    checkDisplayedInfo(eyeColorListing, ["green"]);
+  });
 
-        await wrapper.find("[data-test-scope=search-form-search-cta]").trigger("click");
+  it("should show users that have green eyes and brown eyes if brown and green eyes color is selected", async () => {
+    simulateHttpSuccess();
 
-        // if method is not called twice the jest dom is not updated
-        await flushPromises();
-        await flushPromises();
+    wrapper.find("#eyeColor-brown").trigger("click");
+    wrapper.find("#eyeColor-green").trigger("click");
 
-        const eyeColorListing = wrapper.findAll("[data-test-scope=list-element-eye-color]");
+    await wrapper
+      .find("[data-test-scope=search-form-search-cta]")
+      .trigger("click");
 
-        checkDisplayedInfo(eyeColorListing, ["brown", "green"]);
-    });
+    // if method is not called twice the jest dom is not updated
+    await flushPromises();
+    await flushPromises();
 
-    it("should show users that have green eyes and prefered pet as cat if cat and brown checkboxes are selected", async () => {
-        simulateHttpSuccess();
+    const eyeColorListing = wrapper.findAll(
+      "[data-test-scope=list-element-eye-color]"
+    );
 
-        wrapper.find("#eyeColor-brown").trigger("click");
-        wrapper.find("#preferences-pet-cat").trigger("click");
+    checkDisplayedInfo(eyeColorListing, ["brown", "green"]);
+  });
 
-        await wrapper.find("[data-test-scope=search-form-search-cta]").trigger("click");
+  it("should show users that have green eyes and prefered pet as cat if cat and brown checkboxes are selected", async () => {
+    simulateHttpSuccess();
 
-        // if method is not called twice the jest dom is not updated
-        await flushPromises();
-        await flushPromises();
+    wrapper.find("#eyeColor-brown").trigger("click");
+    wrapper.find("#preferences-pet-cat").trigger("click");
 
-        const eyeColorListing = wrapper.findAll("[data-test-scope=list-element-eye-color]"),
-            preferedPetListing = wrapper.findAll("[data-test-scope=list-element-prefered-pet]");
+    await wrapper
+      .find("[data-test-scope=search-form-search-cta]")
+      .trigger("click");
 
-        checkDisplayedInfo(eyeColorListing, ["brown", "green"]);
-        checkDisplayedInfo(preferedPetListing, ["cat"]);
-    });
+    // if method is not called twice the jest dom is not updated
+    await flushPromises();
+    await flushPromises();
+
+    const eyeColorListing = wrapper.findAll(
+        "[data-test-scope=list-element-eye-color]"
+      ),
+      preferedPetListing = wrapper.findAll(
+        "[data-test-scope=list-element-prefered-pet]"
+      );
+
+    checkDisplayedInfo(eyeColorListing, ["brown", "green"]);
+    checkDisplayedInfo(preferedPetListing, ["cat"]);
+  });
 });
