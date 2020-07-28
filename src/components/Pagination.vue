@@ -1,8 +1,8 @@
 <template>
-  <div class="text-center">
+  <div class="text-center" data-test-scope="pagination">
     <!-- display the pagination component only if we have more then one page -->
-    <ul v-if="pages.length > 1" class="pagination cf inline-bl">
-      <li class="pagination-element float-left">
+    <ul v-if="pages.length > 1" class="pagination cf inline-bl" data-test-scope="pagination-list">
+      <li class="pagination-element float-left" data-test-scope="pagination-element-first">
         <button
           type="button"
           class="cta cta-smp"
@@ -14,6 +14,7 @@
         v-for="page in pages"
         :key="`key-${page}`"
         class="pagination-element float-left"
+        :data-test-scope="`pagination-element-${page}`"
         :class="{ active: activePage === page }"
       >
         <button
@@ -23,7 +24,7 @@
           @click="handleClickCta(page)"
         >{{ page }}</button>
       </li>
-      <li class="pagination-element float-left">
+      <li class="pagination-element float-left" data-test-scope="pagination-element-last">
         <button
           type="button"
           class="cta cta-smp"
@@ -51,7 +52,7 @@ export default {
       // holdes the active selected page by the user
       type: Number,
       require: true,
-      default: 0
+      default: 1
     }
   },
   methods: {

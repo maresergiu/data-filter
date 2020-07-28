@@ -1,5 +1,9 @@
 <template>
-  <form class="search-form mod">
+  <form
+    @submit.prevent="handleClickSearchCta"
+    class="search-form mod"
+    data-test-scope="search-form"
+  >
     <div class="holder">
       <fieldset class="search-form_search-holder cf">
         <InputElement
@@ -19,11 +23,13 @@
         <button
           type="button"
           class="cta search-form_fix-width-cta float-right"
+          data-test-scope="search-form-search-cta"
           @click="handleClickSearchCta"
         >Search</button>
         <button
           type="button"
           class="cta search-form_fix-width-cta float-right"
+          data-test-scope="search-form-reset-cta"
           @click="handleClickResetFormCta"
         >Reset</button>
       </fieldset>
@@ -38,7 +44,7 @@
           <p class="sub-title sub-title-xs">By gender</p>
           <RadioGroup
             inputName="gender"
-            :checkBoxes="getGenderRadioBoxObj"
+            :radioBoxes="getGenderRadioBoxObj"
             :triggerValidation="triggerValidationSecodnary"
             :resetInput="resetFormSecondary"
             @emittedErrorInput="handleErrorInput"
@@ -186,6 +192,7 @@ export default {
       filters[obj.name] = obj.value;
 
       this.resetValidationFormPrimaryMethod();
+      this.resetFormErrors();
       this.setFilters(filters);
     },
     // resets the form errors array
@@ -248,6 +255,7 @@ export default {
       // action from vuex
       this.setResetFilters();
       this.setAllowAgeFilterUpdate(false);
+      this.resetFormErrors();
     }
   }
 };

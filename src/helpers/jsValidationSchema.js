@@ -5,7 +5,7 @@ const jsValidationSchema = Joi.object({
   name: Joi.string().min(1),
   gender: Joi.string().min(1),
   "eye-color": Joi.array().min(1),
-  "prefered-animal": Joi.array().min(1),
+  "prefered-pet": Joi.array().min(1),
   "prefered-fruit": Joi.array().min(1)
 });
 
@@ -21,7 +21,7 @@ const customErrorMessages = {
     "array.min": "Please select an eye color",
     "any.required": "Please select an eye color"
   },
-  "prefered-animal": {
+  "prefered-pet": {
     "array.min": "Please select a prefered animal",
     "any.required": "Please select a prefered animal"
   },
