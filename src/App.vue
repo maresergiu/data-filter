@@ -6,7 +6,7 @@
       </div>
     </header>
     <main id="main">
-      <HomePage />
+      <router-view />
       <GlobalComponents />
     </main>
     <footer id="site-footer">
@@ -22,7 +22,6 @@ import "vue-slider-component/theme/antd.css";
 import "./scss/libs/normalize.scss";
 import "./scss/main.scss";
 
-import HomePage from "./views/HomePage.vue";
 import GlobalComponents from "./components/GlobalComponents.vue";
 import dotenv from "dotenv";
 
@@ -31,7 +30,6 @@ dotenv.config();
 export default {
   name: "App",
   components: {
-    HomePage,
     GlobalComponents
   }
 };
