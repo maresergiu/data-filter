@@ -1,7 +1,7 @@
 <template>
   <div class="text-center" data-test-scope="pagination">
     <!-- display the pagination component only if we have more then one page -->
-    <ul v-if="pages.length > 1" class="pagination cf inline-bl">
+    <ul v-if="pages.length > 1" class="pagination cf inline-bl" data-test-scope="pagination-list">
       <li class="pagination-element float-left" data-test-scope="pagination-element-first">
         <button
           type="button"

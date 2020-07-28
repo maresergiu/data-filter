@@ -161,6 +161,8 @@ export default {
     // show loader
     this.setLoaderVisibility(true);
 
+    if (process.env.NODE_ENV === "test") return;
+
     // fetch the data
     await axios
       .get(process.env.VUE_APP_PEOPLE_JSON_FILE, {
