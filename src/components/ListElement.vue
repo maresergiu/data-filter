@@ -1,13 +1,19 @@
 <template>
   <li
     class="list-element"
-     :class="{'active': listElem._id === activeListElem}">
+    :class="{ active: listElem._id === activeListElem }"
+    data-test-scope="list-element"
+  >
     <div class="cf">
-      <h3 class="sub-title sub-title-xs float-left">{{ listElem.name }}</h3>
+      <h3
+        class="sub-title sub-title-xs float-left"
+        data-test-scope="list-element-name"
+      >{{ listElem.name }}</h3>
       <button
         type="button"
         class="cta cta-smp float-right icon"
-        :class="{'active': listElem._id === activeListElem}"
+        data-test-scope="list-element-dropd-down-cta"
+        :class="{ active: listElem._id === activeListElem }"
         @click="() => handleClickCta(listElem._id)"
       >
         <img src="@/assets/down-arrow.png" alt="icon" />
@@ -16,19 +22,40 @@
     <slide-up-down
       :active="listElem._id === activeListElem"
       :duration="animTimers.fast"
+      data-test-scope="list-element-details"
     >
       <ul class="holder">
         <li>
-          <p>Genrder: {{ listElem.gender }}</p>
+          <p>
+            Genrder:
+            <span data-test-scope="list-element-gender">{{ listElem.gender }}</span>
+          </p>
         </li>
         <li>
-          <p>EyeColor: {{ listElem.eyeColor }}</p>
+          <p>
+            Age:
+            <span data-test-scope="list-element-age">{{ listElem.age }}</span>
+          </p>
         </li>
         <li>
-          <p>Prefered pet: {{ listElem.preferences.pet }}</p>
+          <p>
+            EyeColor:
+            <span data-test-scope="list-element-eye-color">{{ listElem.eyeColor }}</span>
+          </p>
         </li>
         <li>
-          <p>Prefered fruit: {{ listElem.preferences.fruit }}</p>
+          <p>
+            Prefered pet:
+            <span data-test-scope="list-element-pet">{{ listElem.preferences.pet }}</span>
+          </p>
+        </li>
+        <li>
+          <p>
+            Prefered fruit:
+            <span
+              data-test-scope="list-element-fruit"
+            >{{ listElem.preferences.fruit }}</span>
+          </p>
         </li>
       </ul>
     </slide-up-down>
@@ -68,7 +95,10 @@ export default {
       clearTimeout(this.clickTimer);
 
       this.clickTimer = setTimeout(() => {
-        this.$emit("emittedActiveListElem", id);
+        this.$emit(
+          "emittedActiveListElem",
+          this.activeListElem === id ? "-1" : id
+        );
       }, this.animTimers.fast);
     }
   }

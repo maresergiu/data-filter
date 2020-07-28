@@ -1,22 +1,23 @@
 <template>
   <div class="input-element">
     <div
-      v-for="checkBox in checkBoxes"
-      :key="checkBox.id"
+      v-for="radioBox in radioBoxes"
+      :key="radioBox.id"
       class="input-element_radio inline-bl"
     >
       <input
         type="radio"
-        :id="checkBox.id"
+        :id="radioBox.id"
         :name="inputName"
-        :value="checkBox.value"
+        :value="radioBox.value"
         v-model="inputValue"
         class="input-element_radio-input"
+        data-test-scope="input-element-radio-input"
         @change="handleChange"
       />
-      <label :for="checkBox.id" :class="{ hidden: hideLabel }" class="label">
-        {{ checkBox.label }}
-      </label>
+      <label :for="radioBox.id" :class="{ hidden: hideLabel }" class="label">{{
+        radioBox.label
+      }}</label>
     </div>
     <div class="input-element_error">
       <p
@@ -46,8 +47,8 @@ export default {
       type: Boolean,
       default: false
     },
-    checkBoxes: {
-      // stores the checkbox object
+    radioBoxes: {
+      // stores the radioBox object
       type: Array,
       required: true
     },
@@ -78,6 +79,9 @@ export default {
     resetInput() {
       this.resetInputValue();
       this.resetValidationError();
+    },
+    inputErrors() {
+      this.inputErrors.length && this.emitError();
     }
   },
   methods: {
@@ -97,17 +101,20 @@ export default {
     resetInputValue() {
       this.inputValue = "";
     },
+    // emits the validation error obj to parent
+    emitError() {
+      if (this.validationObj.error)
+        this.$emit("emittedErrorInput", {
+          name: this.inputName,
+          value: this.inputValue
+        });
+    },
+    // emit the data of the input
     emitData() {
-      const objToEmit = {
+      this.$emit("emittedValidInput", {
         name: this.inputName,
         value: this.inputValue
-      };
-
-      if (this.validationObj.error) {
-        this.$emit("emittedErrorInput", objToEmit);
-      }
-
-      this.$emit("emittedValidInput", objToEmit);
+      });
     },
     handleChange(event) {
       this.inputValue = event.target.value.trim();

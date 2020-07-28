@@ -1,0 +1,44 @@
+@import "../variables.scss";
+
+.pagination {
+    padding: 20px 0;
+
+    &-element {
+       padding: 0 10px;
+
+        @media only screen and (max-width: $breakpointMobile) {
+            padding: 0 5px;
+        }
+
+       &:last-child,
+       &:first-child {
+        & .cta-smp {
+            width: auto;
+            padding-left: 10px;
+            padding-right: 10px;
+            border-radius: 30px;
+        }
+       }
+
+       & .cta-smp {
+           width: 30px;
+           height: 30px;
+           color: $color-two;
+           border-radius: 50%;
+           border: 2px solid $color-two;
+           transition: $transitionFast;
+
+            &.disabled {
+                opacity: 0.5;
+            }
+        }
+
+        &.active {
+            & .cta-smp {
+                border-color: $color-three;
+                background-color: $color-three;
+                color: $color-one;
+            }
+        }
+    }
+}

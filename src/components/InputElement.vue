@@ -9,6 +9,7 @@
       :name="inputName"
       :placeholder="placeholder"
       class="input-element_input"
+      :data-test-scope="`input-element-${inputId}`"
       :value="inputValue"
       @keyup="handleKeyUp"
     />
@@ -35,6 +36,11 @@ export default {
       type: String,
       required: true
     },
+    hideLabel: {
+      // toggle the label visibility
+      type: Boolean,
+      default: false
+    },
     inputId: {
       // the input ID
       type: String,
@@ -50,11 +56,6 @@ export default {
       type: String,
       required: true
     },
-    hideLabel: {
-      // toggle the label visibility
-      type: Boolean,
-      default: false
-    },
     placeholder: {
       // the input placeholder
       type: String,
@@ -69,6 +70,12 @@ export default {
       // resets the input
       type: Number,
       required: true
+    },
+    resetValidationObj: {
+      // resets the input
+      type: Number,
+      required: false,
+      default: 0
     }
   },
   data() {
@@ -87,6 +94,12 @@ export default {
     resetInput() {
       this.resetInputValue();
       this.resetValidationError();
+    },
+    resetValidationObj() {
+      this.resetValidationError();
+    },
+    inputErrors() {
+      this.inputErrors.length && this.emitError();
     }
   },
   methods: {
@@ -100,24 +113,27 @@ export default {
         ? [...this.validationObj.error.details]
         : [];
     },
+    // hides the visible error
     resetValidationError() {
       this.inputErrors = [];
     },
+    // resets the value to an empty string
     resetInputValue() {
       this.inputValue = "";
     },
+    emitError() {
+      if (this.validationObj.error)
+        this.$emit("emittedErrorInput", {
+          name: this.inputName,
+          value: this.inputValue
+        });
+    },
     // emit the result of validation
     emitData() {
-      const objToEmit = {
+      this.$emit("emittedValidInput", {
         name: this.inputName,
         value: this.inputValue
-      };
-
-      if (this.validationObj.error) {
-        this.$emit("emittedErrorInput", objToEmit);
-      }
-
-      this.$emit("emittedValidInput", objToEmit);
+      });
     },
     handleKeyUp(event) {
       const eventValue = event.target.value.trim();
