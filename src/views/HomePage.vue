@@ -10,9 +10,7 @@
     <div v-else-if="httpState === 'error'">
       <p class="text">
         <span>Something went wrong and we couldn't access the data.</span>
-        <span v-if="internetConnectionState"
-          >Please check your internet connection.</span
-        >
+        <span v-if="internetConnectionState">Please check your internet connection.</span>
       </p>
     </div>
   </div>
